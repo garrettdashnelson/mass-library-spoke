@@ -19,21 +19,21 @@ body { margin: 0; padding: 0; }
 
 let initLoad = true;
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbGlhbS1kYXZpcyIsImEiOiJja2tiYWtvbWcwMmtzMnBvajh3M2kxZGRuIn0.GeROaHKn2Gbvsg1e8buJEw';
+mapboxgl.accessToken = 'pk.eyJ1IjoiZ2FycmV0dG5lbHNvbiIsImEiOiJobnR2YjdRIn0.iANqBs5R5cw3euoH_62X4g';
 const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [0, 40],
-    zoom: 3,
+    style: 'https://api.maptiler.com/maps/basic/style.json?key=1HCKO0pQuPEfNXXzGgSM',
+    center: [-72.0025807327177, 42.392110302532686],
+    zoom: 8,
     projection: 'globe',
-    maxZoom: 6
+    maxZoom: 12
 });
 
 map.on('load', () => {
     let airports;
 
     map.once('idle', () => {
-        d3.json("./data/airport.json", function (d) {
+        d3.json("./data/libraries.json", function (d) {
             airports = d;
             getSpoke(airports);
         });
@@ -78,7 +78,7 @@ function buildSpoke(airports, point) {
         nearestAirports.features.push(nearest);
         nearestAirportLines.features.push(nearestLine);
 
-        const index = cleanedAirports.features.findIndex(n => n.properties.name === nearest.properties.name)
+        const index = cleanedAirports.features.findIndex(n => n.properties.NAME === nearest.properties.NAME)
         if (index !== -1) {
             cleanedAirports.features.splice(index, 1);
         }
